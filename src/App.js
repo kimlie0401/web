@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: "read",
+      mode: "welcome",
       selected_content_id: 2,
       subject: { title: "WEB", sub: "World Wide Web!" },
       welcome: { title: "Welcome", desc: "Hello, React!!" },
@@ -20,7 +20,6 @@ class App extends Component {
     };
   }
   render() {
-    console.log("App render");
     var _title,
       _desc = null;
     if (this.state.mode === "welcome") {
