@@ -4,6 +4,7 @@ import ReadContent from "./components/ReadContent";
 import Subject from "./components/Subject";
 import Control from "./components/Control";
 import CreateContent from "./components/CreateContent";
+import UpdateContent from "./components/UpdateContent";
 import "./App.css";
 
 class App extends Component {
@@ -22,7 +23,7 @@ class App extends Component {
       ]
     };
   }
-  render() {
+  getContent() {
     var _title,
       _desc,
       _article = null;
@@ -56,7 +57,25 @@ class App extends Component {
           }.bind(this)}
         ></CreateContent>
       );
+    } else if (this.state.mode === "update") {
+      _article = (
+        <UpdateContent
+          onSubmit={function(_title, _desc) {
+            this.max_content_id = this.max_content_id + 1;
+            let _content = this.state.contents.concat({
+              id: this.max_content_id,
+              title: _title,
+              desc: _desc
+            });
+            this.setState({ contents: _content });
+          }.bind(this)}
+        ></UpdateContent>
+      );
     }
+    return _article;
+  }
+
+  render() {
     return (
       <div className="App">
         <Subject
@@ -80,7 +99,7 @@ class App extends Component {
             this.setState({ mode: _mode });
           }.bind(this)}
         ></Control>
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
